@@ -3,15 +3,16 @@ import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import Answer from './Answer'
 
 export default class Question extends BaseModel {
-  @column({ isPrimary: true }) public Id: number
+  @column({ isPrimary: true }) public id_question: number
   @column() public question:string
+  @column() public options:object
   @column() public state:boolean
   
   @hasOne(()=>Answer,{
-    localKey:'Id',
-    foreignKey:'question_id'
+    localKey:'id_question',
+    foreignKey:'id_question'
   })
-  public question_id:HasOne<typeof Answer>
+  public id_answer:HasOne<typeof Answer>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

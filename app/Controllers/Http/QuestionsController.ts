@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Question from 'App/Models/Question';
-import Answer from 'App/Models/Answer';
 
 export default class QuestionsController {
 
@@ -10,36 +9,16 @@ export default class QuestionsController {
         const question = new Question();
         try{
             question.question=questionInput;
+            question.options=optionsInput;
             question.state=false;
-            await question.save();
-            if(this.createAnswers(optionsInput,question.Id)){
+            if( await question.save()){
                 response.status(200).json({"state":true,"message":"Pregunta creada exitosamente"})
             }
-            
         }catch(error){
             console.log(error)
             response.status(400).json({"state":false,"message":"Error al crear la pregunta"})
         }
     }
-
-    private createAnswers(options:any,id:any){
-        try{
-            options.forEach(async (option:any)=>{
-                const answer = new Answer();
-                answer.question_id=id;
-                answer.answer=option.opcion;
-                answer.is_correct=option.isCorrect;
-                answer.state=false;
-                await answer.save();
-            })
-            return true;
-
-        }catch(error){
-            console.log(error)
-            return false;
-        }
-    }
-
     public async getQuestions({response}:HttpContextContract){
         try{
             const questions = await Question.all();
@@ -68,7 +47,7 @@ export default class QuestionsController {
 
     public async deleteQuestion({request,response}:HttpContextContract){
         const id = request.input('id');
-        
+        const question = await Question.
         if(await Question.query().where('Id',id).delete()){
             if(await Answer.query().where('question_id',id).delete()){
                 response.status(200).json({"state":true,"message":"Pregunta eliminada con exito"})

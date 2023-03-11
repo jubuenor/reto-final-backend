@@ -2,9 +2,9 @@ import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
 export default class Form extends BaseModel {
-  @column({ isPrimary: true }) public Id: number
-  @column() public student_id:string
-  @column() public answer_id:number
+  @column({ isPrimary: true }) public id_form: number
+  @column() public id_student:string
+  @column() public id_answer:number
   @column() public state:boolean
 
   @column.dateTime({ autoCreate: true })

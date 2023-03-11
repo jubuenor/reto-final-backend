@@ -8,15 +8,14 @@ export default class RolesController {
             const role = new Role();
             role.name=name;
             role.state=false;
-            await role.save();
-            return response.status(200).json({"state":true,"message":"Rol creado correactamente"});
+            if(await role.save()) return response.status(200).json({"state":true,"message":"Rol creado correactamente"});
         }catch(error){
             console.log(error);
             return response.status(400).json({"state":false,"message":"Error en el servidor"})
         }
     }
 
-    public async listRole():Promise<Role[]>{
+    public async listRoles():Promise<Role[]>{
         const roles = await Role.all();
         return roles;
     }

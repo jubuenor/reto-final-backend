@@ -3,14 +3,15 @@ import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 
 export default class Role extends BaseModel {
-  @column({ isPrimary: true }) public Id: number
+  @column({ isPrimary: true }) public id_rol:number
   @column() public name:string
   @column() public state:boolean
+
   @hasOne(()=>User,{
-    localKey:'Id',
-    foreignKey:'rol_id'
+    localKey:'id_rol',
+    foreignKey:'id_rol'
   })
-  public rol_id:HasOne<typeof User>
+  public id_user:HasOne<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -5,7 +5,7 @@ export default class TypesDocuments extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('Id');
+      table.increments('id_type_document').primary();
       table.string('name').notNullable();
       table.boolean('state').notNullable();
       table.timestamps(true)

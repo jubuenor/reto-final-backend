@@ -2,16 +2,16 @@ import { DateTime } from 'luxon'
 import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 
-export default class TypeDocument extends BaseModel {
-  @column({ isPrimary: true }) public Id: number
+export default class TypesDocument extends BaseModel {
+  @column({ isPrimary: true }) public id_typeDocument: number
   @column() public name:string
   @column() public state:boolean
 
   @hasOne(()=>User,{
-    localKey:'Id',
-    foreignKey:'type_document'
+    localKey:'id_typeDocument',
+    foreignKey:'id_typeDocument'
   })
-  public type_documen:HasOne<typeof User>
+  public id_user:HasOne<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

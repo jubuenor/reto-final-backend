@@ -5,9 +5,9 @@ export default class Forms extends BaseSchema {
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
-      table.increments('Id');
-      table.integer('student_id').references('Id').inTable('users');
-      table.integer('answer_id').references('Id').inTable('answers');
+      table.increments('id_form').primary();
+      table.integer('id_student').references('id_user').inTable('users');
+      table.integer('id_answer').references('id_answer').inTable('answers');
       table.boolean('state').notNullable();
       table.timestamps(true)
     })
