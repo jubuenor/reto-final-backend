@@ -9,7 +9,7 @@ export default class User extends BaseModel {
   @column() public surname:string
   @column() public second_surname:string
   @column() public id_typeDocument:number
-  @column() public document_number:number
+  @column() public document_number:string
   @column() public email:string
   @column() public password:string
   @column() public id_rol:number

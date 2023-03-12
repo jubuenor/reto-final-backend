@@ -8,7 +8,7 @@ const bcryptjs = require('bcryptjs');
 
 export default class UsersController {
     public async registerUser({request,response}:HttpContextContract){
-        const {firstName,secondName,surname,secondSurname,typeDocument,documentNumber,email,phone,password}=request.all();
+        const {firstName,secondName,surname,secondSurName,typeDocument,documentNumber,email,phone,password,idRol}=request.all();
         try{
             const emailExist = await User.findBy('email',email);
             if(emailExist) return response.status(400).json({"state":false,"message":"Email existente"});
@@ -19,13 +19,13 @@ export default class UsersController {
             user.first_name=firstName;
             user.second_name=secondName;
             user.surname=surname;
-            user.second_surname=secondSurname;
-            user.type_document=typeDocument;
+            user.second_surname=secondSurName;
+            user.id_typeDocument=typeDocument;
             user.document_number=documentNumber;
             user.email=email;
             user.phone=phone;
             user.password=bcryptjs.hashSync(password);
-            user.rol_id=2;
+            user.id_rol=idRol;
             user.state=false;
             if(await user.save()) return response.status(200).json({"state":true,"message":"Usuario creado correctamente"});
         }catch(error){
@@ -45,21 +45,21 @@ export default class UsersController {
             if(!validaPassword) return response.status(400).json({"state":false,"message":"Constraseña o email invalido"})
             
             const payload ={
-                "id":user.Id,
+                "id":user.id_user,
                 "firstName": user.first_name,
                 "secondName": user.second_name,
                 "surname": user.surname,
                 "secondSurName": user.second_surname,
-                "typeDocument": user.type_document,
+                "typeDocument": user.id_typeDocument,
                 "documentNumber": user.document_number,
                 "email": user.email,
                 "phone": user.phone,
-                "role":user.rol_id
+                "role":user.id_rol
             }
             const token:string = this.generarToken(payload);
             response.status(200).json({
                 "state":true,
-                "id":user.Id,
+                "id":user.id_user,
                 "name":`${user.first_name} ${user.second_name} ${user.surname} ${user.second_name}`,
                 "message":"Ingreso exitoso",
                 token
@@ -72,7 +72,7 @@ export default class UsersController {
 
     private generarToken(payload: any):string{
         const opciones ={
-            expiresIn:"5 min"
+            expiresIn:"30 min"
         }
         return jwt.sign(payload,Env.get('JWT_SECRET_KEY'),opciones)
     }
@@ -92,11 +92,11 @@ export default class UsersController {
         const page = request.input('page');
         const filter = request.input('filter');
         try{
-            const users = await User.query().where('name',filter).orderBy('Id').paginate(page,perPage);
+            const users = await User.query().where('first_name',filter).orderBy('id_user').paginate(page,perPage);
             response.status(200).json({
                 "state":true,
                 "message":"Listado de estuidantes",
-                "users":users
+                users
             })
         }catch(error){
             console.log(error)
@@ -116,7 +116,7 @@ export default class UsersController {
             user.second_name=secondName;
             user.surname=surname;
             user.second_surname=secondSurname;
-            user.type_document=typeDocument;
+            user.id_typeDocument=typeDocument;
             user.document_number=documentNumber;
             user.email=email;
             user.phone=phone;
@@ -137,7 +137,7 @@ export default class UsersController {
                 "secondName": user.second_name,
                 "surname": user.surname,
                 "secondSurName": user.second_surname,
-                "typeDocument": user.type_document,
+                "typeDocument": user.id_typeDocument,
                 "documentNumber": user.document_number,
                 "email": user.email,
                 "phone": user.phone

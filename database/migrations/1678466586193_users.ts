@@ -10,8 +10,8 @@ export default class Users extends BaseSchema {
       table.string('second_name').notNullable();
       table.string('surname').notNullable();
       table.string('second_surname').notNullable();
-      table.integer('id_typeDocument').references('id_type_document').inTable('types_documents');
-      table.integer('document_number').notNullable().unique();
+      table.integer('id_type_document').references('id_type_document').inTable('types_documents');
+      table.string('document_number').notNullable().unique();
       table.string('email').notNullable().unique();
       table.string('password').notNullable();
       table.integer('id_rol').references('id_rol').inTable('roles');

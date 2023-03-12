@@ -6,7 +6,6 @@ export default class TypesDocumentsController {
         const name = request.input('name');
         try{
             const typeDocument = new TypesDocument();
-            typeDocument.Id=1;
             typeDocument.name=name;
             typeDocument.state=false;
             if(await typeDocument.save()) return response.status(200).json({"state":true,"message":"Tipo de documento creado correactamente"});

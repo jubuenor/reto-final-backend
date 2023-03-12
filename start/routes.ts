@@ -28,24 +28,30 @@ Route.group(()=>{
   Route.group(()=>{
     Route.post('/register','UsersController.registerUser')
     Route.post('/login','UsersController.login')
-    Route.get('/getUsers','UsersController.listUsers')
-    Route.put('/update/:id','UsersController.updateUser')
-    Route.get('/getUser/:id','UsersController.getUser')
-    Route.delete('/delete/:id','UsersController.deleteUser')
-  }).prefix('/users')
+  })
 
   Route.group(()=>{
-    Route.post('/create','TypesDocumentsController.registerTypeDocument')
-    Route.get('/getTypeDocuments','TypesDocumentsController.listTypeDocuments')
-    Route.put('/update/:id','TypesDocumentsController.updateTypeDocument')
-    Route.delete('/delete/:id','TypesDocumentsController.deleteTypeDocument')
-  }).prefix('/typeDocuments')
-
-  Route.group(()=>{
-    Route.post('/create','RolesController.registerRole')
-    Route.get('/getRoles','RolesController.listRoles')
-    Route.put('/update/:id','RolesController.updateRole')
-    Route.delete('/delete/:id','RolesController.deleteRole')
-  }).prefix('/roles')
+    
+    Route.group(()=>{
+      Route.post('/getUsers','UsersController.listUsers')
+      Route.put('/update/:id','UsersController.updateUser')
+      Route.get('/getUser/:id','UsersController.getUser')
+      Route.delete('/delete/:id','UsersController.deleteUser')
+    }).prefix('/users').middleware('adminAuth')
   
+    Route.group(()=>{
+      Route.post('/create','TypesDocumentsController.registerTypeDocument')
+      Route.get('/getTypeDocuments','TypesDocumentsController.listTypeDocuments')
+      Route.put('/update/:id','TypesDocumentsController.updateTypeDocument')
+      Route.delete('/delete/:id','TypesDocumentsController.deleteTypeDocument')
+    }).prefix('/typeDocuments').middleware('studentAuth')
+  
+    Route.group(()=>{
+      Route.post('/create','RolesController.registerRole')
+      Route.get('/getRoles','RolesController.listRoles')
+      Route.put('/update/:id','RolesController.updateRole')
+      Route.delete('/delete/:id','RolesController.deleteRole')
+    }).prefix('/roles').middleware('studentAuth')
+
+  }).middleware('auth')
 }).prefix('/api')

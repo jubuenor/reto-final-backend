@@ -5,7 +5,6 @@ import Answer from './Answer'
 export default class Question extends BaseModel {
   @column({ isPrimary: true }) public id_question: number
   @column() public question:string
-  @column() public options:object
   @column() public state:boolean
   
   @hasOne(()=>Answer,{
