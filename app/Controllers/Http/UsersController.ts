@@ -155,15 +155,15 @@ export default class UsersController {
         }
     }
 
-    public async deleteUser({request,response}:HttpContextContract){
-        const id = request.param('id');
-        const user = await User.find(id);
-        if(user){
-            user.delete();
-            return response.status(200).json({"state":true,"message":"Usuario eliminado correctamente"}) 
-        }else{
-            return response.status(404).json({"state":false,"message":"Usuario no encontrado"}) 
-        }
-    }
+    // public async deleteUser({request,response}:HttpContextContract){
+    //     const id = request.param('id');
+    //     const user = await User.find(id);
+    //     if(user){
+    //         user.delete();
+    //         return response.status(200).json({"state":true,"message":"Usuario eliminado correctamente"}) 
+    //     }else{
+    //         return response.status(404).json({"state":false,"message":"Usuario no encontrado"}) 
+    //     }
+    // }
 
 }

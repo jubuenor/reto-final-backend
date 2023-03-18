@@ -66,15 +66,13 @@ export default class QuestionsController {
 
     public async deleteQuestion({request,response}:HttpContextContract){
         const id = request.param('id');
-        try{
-            if(await Question.query().where('id_question',id).delete()){
-                response.status(200).json({"state":true,"message":"Pregunta eliminada con exito"})
-            }else{
-                response.status(400).json({"state":false,"message":"Error al eliminar pregunta"})
-            }
-        }catch(error){
-            console.log(error)
-            response.status(400).json({"state":false,"message":"Error en el servidor"})
+        const question = await Question.find(id);
+        if(question){
+            await question.delete();
+            response.status(200).json({"state":true,"message":"Pregunta eliminada con exito"})
+        }else{
+            response.status(400).json({"state":false,"message":"Error al eliminar pregunta"})
         }
+        
     }
 }

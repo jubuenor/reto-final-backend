@@ -39,19 +39,19 @@ Route.group(()=>{
       //Route.delete('/delete/:id','UsersController.deleteUser')
     }).prefix('/user').middleware('adminAuth')
   
-    Route.group(()=>{
-      Route.post('/create','TypesDocumentsController.registerTypeDocument')
-      // Route.get('/getTypeDocuments','TypesDocumentsController.listTypeDocuments')
-      // Route.put('/update/:id','TypesDocumentsController.updateTypeDocument')
-      // Route.delete('/delete/:id','TypesDocumentsController.deleteTypeDocument')
-    }).prefix('/typeDocuments').middleware('adminAuth')
+    // Route.group(()=>{
+    //   Route.post('/create','TypesDocumentsController.registerTypeDocument')
+    //   // Route.get('/getTypeDocuments','TypesDocumentsController.listTypeDocuments')
+    //   // Route.put('/update/:id','TypesDocumentsController.updateTypeDocument')
+    //   // Route.delete('/delete/:id','TypesDocumentsController.deleteTypeDocument')
+    // }).prefix('/typeDocuments').middleware('adminAuth')
   
-    Route.group(()=>{
-      Route.post('/create','RolesController.registerRole')
-      // Route.get('/getRoles','RolesController.listRoles')
-      // Route.put('/update/:id','RolesController.updateRole')
-      // Route.delete('/delete/:id','RolesController.deleteRole')
-    }).prefix('/roles').middleware('adminAuth')
+    // Route.group(()=>{
+    //   Route.post('/create','RolesController.registerRole')
+    //   // Route.get('/getRoles','RolesController.listRoles')
+    //   // Route.put('/update/:id','RolesController.updateRole')
+    //   // Route.delete('/delete/:id','RolesController.deleteRole')
+    // }).prefix('/roles').middleware('adminAuth')
 
     Route.group(()=>{
       Route.post('/create','QuestionsController.createQuestion')
