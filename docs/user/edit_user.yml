@@ -1,0 +1,28 @@
+/api/v1/user/update/:id:
+  get:
+    tags:
+      - User
+    security: []
+    description: editar estudiante
+    requestBody:
+      content:
+        application/json:
+          schema:
+             $ref: '#/components/schemas/user_create'
+    responses:
+      200:
+        description: Petición exitosa
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                state: 
+                  type: boolean
+                message:
+                 type: string
+              example:
+                {
+                  "state": true,
+                  "message": "Se actualizo correctamente"
+                }

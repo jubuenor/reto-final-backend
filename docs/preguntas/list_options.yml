@@ -1,0 +1,47 @@
+/api/v1/questions/getOptions/:id:
+  get:
+    tags:
+      - Question
+    security: []
+    description: Listar opciones
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Petición exitosa
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                state: 
+                  type: boolean
+                message:
+                 type: string
+                options:
+                  type: array
+                  properties:
+                    id:
+                      type: number
+                    option: 
+                      type: string
+
+              example:
+                {
+                    "state": true,
+                    "message": "Listado de opciones",
+                    "options": [{
+                        "id": 1,
+                        "option": "lunes",
+                    }, {
+                        "id": 2,
+                        "option": "martes",
+                    }, {
+                        "id": 3,
+                        "option": "miercoles",
+                    }, {
+                        "id": 4,
+                        "option": "jueves",
+                    }]
+                }
+

@@ -1,0 +1,63 @@
+definitions:
+  question:
+    type: object
+    properties:
+      id_question:
+        type: number
+      question:
+        type: string
+      state:
+        type: boolean
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+components:
+  schemas:
+    question_create:
+        type: object
+        properties:
+            question:
+                type: string
+            options:
+                type: array
+                properties:
+                    type: object
+                    properties: 
+                      opcion:
+                        type: string
+                      iscorrect:
+                        type: boolean
+        required:
+            - question 
+            - options        
+        example:
+            question: ¿example?
+            options: 
+              opcion: esta es correcta
+              iscorrect: true
+    
+    question_edit:
+        type: object
+        properties:
+            question:
+                type: string
+        required:
+            - question      
+        example:
+            question: ¿example?
+
+    answer_edit:
+        type: object
+        properties:
+            opcion:
+                type: string
+            iscorrect:
+                type: boolean
+        required:
+            - question     
+            - iscorrect 
+        example:
+            question: ¿example?
+            iscorrect: true

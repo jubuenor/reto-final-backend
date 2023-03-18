@@ -1,0 +1,37 @@
+/api/v1/questions/getQuestions:
+  get:
+    tags:
+      - Question
+    security: []
+    description: Listar preguntas
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Petición exitosa
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                state: 
+                  type: boolean
+                questions:
+                  type: array
+                  properties:
+                      question:
+                        type: string
+                      id:
+                        type: number
+              example:
+                {
+                    "state": true,
+                    "questions": [{
+                        "question": "¿que dia es hoy?",
+                        "id": "12"
+                    }, {
+                        "question": "¿que dia es hoy?",
+                        "id": "12"
+                    }]
+                }
+

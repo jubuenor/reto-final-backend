@@ -1,0 +1,32 @@
+definitions:
+  form:
+    type: object
+    properties:
+      id_form:
+        type: number
+      id_student:
+        type: number
+      id_answer:
+        type: number
+      state:
+        type: boolean
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+components:
+  schemas:
+    form_create:
+        type: object
+        properties:
+            estudianteId:
+                type: number
+            answers:
+                type: array
+        required:
+            - estudianteId  
+            - answers      
+        example:
+            estudianteId: 123
+            answers:  [4, 1, 3, 5]

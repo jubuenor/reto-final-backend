@@ -1,0 +1,31 @@
+/api/v1/questions/updateQuestion/:id:
+  get:
+    tags:
+      - Question
+    security: []
+    description: Editar pregunta
+    requestBody:
+      content:
+        application/json:
+          schema:
+             $ref: '#/components/schemas/question_edit'
+    responses:
+      200:
+        description: Petición exitosa
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                state: 
+                  type: boolean
+                message:
+                  type: string
+              example:
+                {
+                    "state": true,
+                    "message": "Pregunta Editada con exito"
+                }
+
+
+

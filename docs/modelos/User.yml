@@ -1,0 +1,116 @@
+definitions:
+  user:
+    type: object
+    properties:
+      id_user:
+        type: number
+      first_name:
+        type: string
+      second_name:
+        type: string
+      surname:
+        type: string
+      second_surname:
+        type: string
+      id_typeDocument:
+        type: number
+      document_number:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      id_rol:
+        type: number
+      phone:
+        type: string
+      state:
+        type: boolean
+      created_at:
+        type: string
+      updated_at:
+        type: string
+
+components:
+  schemas:
+    user_login:
+        type: object
+        properties:
+            email:
+                type: string
+            password:
+                type: string
+        required:
+            - email  
+            - password         
+        example:
+            email: admin@123.com
+            password: 1234
+
+    user_create:
+        type: object
+        properties:
+            firstName:
+              type: string
+            secondName:
+              type: string
+            surname:
+              type: string
+            secondSurName:
+              type: string
+            typeDocument:
+              type: number
+            documentNumber:
+              type: string
+            email:
+              type: string
+            password:
+              type: string
+            rol:
+              type: number
+            phone:
+              type: string
+        required:
+            - firstName
+            - secondName
+            - surname
+            - secondSurName
+            - typeDocument
+            - documentNumber
+            - email  
+            - password   
+            - rol
+            - phone   
+        example:
+            firstName: example
+            secondName: example
+            surname: example
+            secondSurName: example
+            typeDocument: 1
+            documentNumber: 123
+            email: example@example.com  
+            password: example   
+            rol: 1
+            phone: 123
+
+    user_list:
+        type: object
+        properties:
+            perPage:
+                type: number
+            page:
+                type: number
+            filter: 
+                type: object
+                properties:
+                  name:
+                    type: string
+        required:
+            - perPage  
+            - page
+            - filter       
+        example:
+            perPage: 1
+            page: 1
+            filter: 
+              name: name    

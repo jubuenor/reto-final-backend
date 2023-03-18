@@ -1,0 +1,29 @@
+/api/v1/user/getUser/id:
+  get:
+    tags:
+      - User
+    security: []
+    description: get estudiante por id
+    produces:
+      - application/json
+    responses:
+      200:
+        description: Petición exitosa
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/definitions/user'
+              example:
+                {
+                    "firstName": "daniel",
+                    "secondName": "jose",
+                    "surname": "cruz",
+                    "secondSurName": "casallas",
+                    "typeDocument": 1, //  2 , 3,
+                    "documentNumber": "123456789",
+                    "email": "danielc88@gmail.co,",
+                    "phone": "32123122314"
+                }
+

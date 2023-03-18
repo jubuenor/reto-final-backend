@@ -1,0 +1,36 @@
+/api/v1/question/create:
+  post:
+    tags:
+      - Question
+    description: crear pregunta ok
+    requestBody:
+      content:
+        application/json:
+          schema:
+             $ref: '#/components/schemas/question_create'
+    responses:
+      200:
+        description: Petición exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                perfil:
+                  type: object
+                  properties:
+                    state:
+                      type: boolean
+                    message: 
+                      type: string
+                msj:
+                  type: string
+                  description: Mensaje de respuesta 
+            example:
+              {
+                  "state": true,
+                  "message": "Pregunta creada exitosamente"
+              }
+
+
+

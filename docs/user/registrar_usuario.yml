@@ -1,0 +1,33 @@
+/api/v1/user/create:
+  post:
+    tags:
+      - User
+    description: crear usuario ok
+    requestBody:
+      content:
+        application/json:
+          schema:
+             $ref: '#/components/schemas/user_create'
+    responses:
+      200:
+        description: Petición exitosa
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                perfil:
+                  type: object
+                  properties:
+                    state:
+                      type: boolean
+                    message: 
+                      type: string
+                msj:
+                  type: string
+                  description: Mensaje de respuesta 
+            example:
+              {
+                    "state": true,
+                    "message": "Estudiante creado correctamente"
+              }
