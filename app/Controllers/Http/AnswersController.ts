@@ -19,7 +19,7 @@ export default class AnswersController {
     public async listAnswers({request,response}:HttpContextContract){
         const id = request.param('id');
         try{
-            const answers = await Answer.query().where('question_id',id);
+            const answers = await Answer.query().select('id_answer','answer').where('id_question',id);
             return response.status(200).json({
                 "state":true,
                 "message":"Listado de opciones",

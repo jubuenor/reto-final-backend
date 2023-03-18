@@ -8,8 +8,8 @@ export default class Answers extends BaseSchema {
       table.increments('id_answer').primary();
       table.string('answer').notNullable();
       table.boolean('is_correct').notNullable();
-      table.integer('id_question').references('id_question').inTable('questions');
-      table.boolean('state').notNullable();
+      table.integer('id_question').references('id_question').inTable('questions').onDelete('CASCADE');
+      table.boolean('state').defaultTo(true);
       table.timestamps(true)
     })
   }

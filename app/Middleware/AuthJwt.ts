@@ -18,6 +18,7 @@ export default class AuthJwt {
       usuariosController.verificarToken(token);
       await next() //continua con la peticion
     }catch(error){
+      console.log(error)
       response.status(400).send({"msg":"Falla en el token"});
 
     }

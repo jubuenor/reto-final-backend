@@ -8,7 +8,7 @@ const bcryptjs = require('bcryptjs');
 
 export default class UsersController {
     public async registerUser({request,response}:HttpContextContract){
-        const {firstName,secondName,surname,secondSurName,typeDocument,documentNumber,email,phone,password,idRol}=request.all();
+        const {firstName,secondName,surname,secondSurName,typeDocument,documentNumber,email,phone,password,rol}=request.all();
         try{
             const emailExist = await User.findBy('email',email);
             if(emailExist) return response.status(400).json({"state":false,"message":"Email existente"});
@@ -25,8 +25,7 @@ export default class UsersController {
             user.email=email;
             user.phone=phone;
             user.password=bcryptjs.hashSync(password);
-            user.id_rol=idRol;
-            user.state=false;
+            user.id_rol=rol;
             if(await user.save()) return response.status(200).json({"state":true,"message":"Usuario creado correctamente"});
         }catch(error){
             console.log(error);
@@ -79,7 +78,7 @@ export default class UsersController {
 
     public verificarToken(authorizationHeader:string){
         let token = authorizationHeader.split(' ')[1];
-        token = jwt.verify(token,Env.get('JWT_SECRET_KEY'),(error)=>{
+        jwt.verify(token,Env.get('JWT_SECRET_KEY'),(error:any)=>{
             if(error){
                 throw new Error("Token expirado")
             }
@@ -92,11 +91,20 @@ export default class UsersController {
         const page = request.input('page');
         const filter = request.input('filter');
         try{
-            const users = await User.query().where('first_name',filter).orderBy('id_user').paginate(page,perPage);
+            const users = await User.query().select( 
+            'first_name',
+            'second_name',
+            'surname',
+            'second_surname',
+            'id_type_document',
+            'document_number',
+            'email',
+            'phone'
+            ).where(filter).where('id_rol',2).orderBy('id_user').paginate(page,perPage);
             response.status(200).json({
                 "state":true,
                 "message":"Listado de estuidantes",
-                users
+                users:users.toJSON().data
             })
         }catch(error){
             console.log(error)

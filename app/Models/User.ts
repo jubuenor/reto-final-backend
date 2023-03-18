@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column,hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column,hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import Form from './Form'
 
 export default class User extends BaseModel {
@@ -16,11 +16,11 @@ export default class User extends BaseModel {
   @column() public phone:string
   @column() public state:boolean
 
-  @hasOne(()=>Form,{
+  @hasMany(()=>Form,{
     localKey:'id_user',
     foreignKey:'id_user'
   })
-  public id_form:HasOne<typeof Form>
+  public id_form:HasMany<typeof Form>
   
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

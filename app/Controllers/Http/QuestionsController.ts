@@ -6,34 +6,32 @@ export default class QuestionsController {
 
     public async createQuestion({request,response}:HttpContextContract){
         const questionInput = request.input('question');
-        const optionsInput = request.input('options');
+        const optionsInput:[] = request.input('options');
         const question = new Question();
         try{
             question.question=questionInput;
-            question.state=false;
             await question.save();
-            if(this.createAnswers(optionsInput,question.Id)){
+            if(await this.createAnswers(optionsInput,question.id_question)){
                 response.status(200).json({"state":true,"message":"Pregunta creada exitosamente"})
+            }else{
+                response.status(400).json({"state":false,"message":"Error al crear la pregunta"})
             }
-
         }catch(error){
             console.log(error)
-            response.status(400).json({"state":false,"message":"Error al crear la pregunta"})
+            response.status(400).json({"state":false,"message":"Error en el servidor"})
         }
     }
 
-    private createAnswers(options:any,id:any){
+    private async createAnswers(options:any,id:any){
         try{
             options.forEach(async (option:any)=>{
                 const answer = new Answer();
-                answer.question_id=id;
+                answer.id_question=id;
                 answer.answer=option.opcion;
-                answer.is_correct=option.isCorrect;
-                answer.state=false;
+                answer.is_correct=option.iscorrect;
                 await answer.save();
             })
             return true;
-
         }catch(error){
             console.log(error)
             return false;
@@ -42,7 +40,7 @@ export default class QuestionsController {
 
     public async getQuestions({response}:HttpContextContract){
         try{
-            const questions = await Question.all();
+            const questions = await Question.query().select('id_question','question');
             response.status(200).json({
                 "state":true,
                 "questions":questions
@@ -67,17 +65,16 @@ export default class QuestionsController {
     }
 
     public async deleteQuestion({request,response}:HttpContextContract){
-        const id = request.input('id');
-
-        if(await Question.query().where('Id',id).delete()){
-            if(await Answer.query().where('question_id',id).delete()){
+        const id = request.param('id');
+        try{
+            if(await Question.query().where('id_question',id).delete()){
                 response.status(200).json({"state":true,"message":"Pregunta eliminada con exito"})
+            }else{
+                response.status(400).json({"state":false,"message":"Error al eliminar pregunta"})
             }
-        }else{
-            response.status(400).json({"state":false,"message":"Error al eliminar pregunta"})
+        }catch(error){
+            console.log(error)
+            response.status(400).json({"state":false,"message":"Error en el servidor"})
         }
-
     }
-
-
 }

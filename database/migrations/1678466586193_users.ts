@@ -16,7 +16,7 @@ export default class Users extends BaseSchema {
       table.string('password').notNullable();
       table.integer('id_rol').references('id_rol').inTable('roles');
       table.string('phone').notNullable();
-      table.boolean('state').notNullable();
+      table.boolean('state').defaultTo(true);
       table.timestamps(true)
     })
   }

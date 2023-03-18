@@ -26,7 +26,7 @@ Route.get('/', async () => {
 
 Route.group(()=>{
   Route.group(()=>{
-    Route.post('/register','UsersController.registerUser')
+    Route.post('/user/register','UsersController.registerUser')
     Route.post('/login','UsersController.login')
   })
 
@@ -36,22 +36,37 @@ Route.group(()=>{
       Route.post('/getUsers','UsersController.listUsers')
       Route.put('/update/:id','UsersController.updateUser')
       Route.get('/getUser/:id','UsersController.getUser')
-      Route.delete('/delete/:id','UsersController.deleteUser')
-    }).prefix('/users').middleware('adminAuth')
+      //Route.delete('/delete/:id','UsersController.deleteUser')
+    }).prefix('/user').middleware('adminAuth')
   
     Route.group(()=>{
       Route.post('/create','TypesDocumentsController.registerTypeDocument')
-      Route.get('/getTypeDocuments','TypesDocumentsController.listTypeDocuments')
-      Route.put('/update/:id','TypesDocumentsController.updateTypeDocument')
-      Route.delete('/delete/:id','TypesDocumentsController.deleteTypeDocument')
-    }).prefix('/typeDocuments').middleware('studentAuth')
+      // Route.get('/getTypeDocuments','TypesDocumentsController.listTypeDocuments')
+      // Route.put('/update/:id','TypesDocumentsController.updateTypeDocument')
+      // Route.delete('/delete/:id','TypesDocumentsController.deleteTypeDocument')
+    }).prefix('/typeDocuments').middleware('adminAuth')
   
     Route.group(()=>{
       Route.post('/create','RolesController.registerRole')
-      Route.get('/getRoles','RolesController.listRoles')
-      Route.put('/update/:id','RolesController.updateRole')
-      Route.delete('/delete/:id','RolesController.deleteRole')
-    }).prefix('/roles').middleware('studentAuth')
+      // Route.get('/getRoles','RolesController.listRoles')
+      // Route.put('/update/:id','RolesController.updateRole')
+      // Route.delete('/delete/:id','RolesController.deleteRole')
+    }).prefix('/roles').middleware('adminAuth')
+
+    Route.group(()=>{
+      Route.post('/create','QuestionsController.createQuestion')
+      Route.put('/updateQuestion/:id','QuestionsController.updateQuestion')
+      Route.get('/getQuestions/','QuestionsController.getQuestions')
+      Route.delete('/deleteQuestion/:id','QuestionsController.deleteQuestion')
+      Route.put('/updateAnswer/:id','AnswersController.updateAnswer')
+      Route.get('/getOptions/:id','AnswersController.listAnswers')
+    }).prefix('/questions').middleware('adminAuth')
+    
+    Route.group(()=>{
+      Route.get('/getquestions','FormsController.listForm')
+      Route.post('/postquestions','FormsController.createForm')
+    }).prefix('/form').middleware('studentAuth')
 
   }).middleware('auth')
-}).prefix('/api')
+
+}).prefix('/api/v1')
