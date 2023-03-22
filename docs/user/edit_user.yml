@@ -1,14 +1,22 @@
-/api/v1/user/update/:id:
+/api/v1/user/update/{id}:
   get:
     tags:
       - User
-    security: []
+    security:
+        - bearerAuth: []
     description: editar estudiante
     requestBody:
       content:
         application/json:
           schema:
              $ref: '#/components/schemas/user_create'
+    parameters:
+        - in: path
+          name: id   
+          required: true
+          type: integer
+          minimum: 1
+          description: User id
     responses:
       200:
         description: Petición exitosa

@@ -2,7 +2,8 @@
   get:
     tags:
       - User
-    security: []
+    security:
+        - bearerAuth: []
     description: Listar estudiantes
     requestBody:
       content:

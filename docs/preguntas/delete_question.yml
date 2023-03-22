@@ -1,11 +1,19 @@
-/api/v1/questions/deleteQuestions/:id:
+/api/v1/questions/deleteQuestions/{id}:
   get:
     tags:
       - Question
-    security: []
+    security:
+        - bearerAuth: []
     description: Eliminar pregunta
     produces:
       - application/json
+    parameters:
+        - in: path
+          name: id   
+          required: true
+          type: integer
+          minimum: 1
+          description: Question id
     responses:
       200:
         description: Petición exitosa

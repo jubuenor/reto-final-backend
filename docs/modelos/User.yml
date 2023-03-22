@@ -45,7 +45,7 @@ components:
             - password         
         example:
             email: admin@123.com
-            password: 1234
+            password: "1234"
 
     user_create:
         type: object

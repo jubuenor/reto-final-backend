@@ -3,6 +3,8 @@
     tags:
       - Question
     description: crear pregunta ok
+    security:
+        - bearerAuth: []
     requestBody:
       content:
         application/json:

@@ -1,14 +1,22 @@
-/api/v1/questions/updateQuestion/:id:
+/api/v1/questions/updateQuestion/{id}:
   get:
     tags:
       - Question
-    security: []
+    security:
+        - bearerAuth: []
     description: Editar pregunta
     requestBody:
       content:
         application/json:
           schema:
              $ref: '#/components/schemas/question_edit'
+    parameters:
+        - in: path
+          name: id   
+          required: true
+          type: integer
+          minimum: 1
+          description: Question id
     responses:
       200:
         description: Petición exitosa

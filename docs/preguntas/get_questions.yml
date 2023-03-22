@@ -2,7 +2,8 @@
   get:
     tags:
       - Question
-    security: []
+    security:
+        - bearerAuth: []
     description: Listar preguntas
     produces:
       - application/json

@@ -2,6 +2,8 @@
   post:
     tags:
       - User
+    security:
+        - bearerAuth: []
     description: login ok
     requestBody:
       content:

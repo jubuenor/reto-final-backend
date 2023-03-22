@@ -1,11 +1,19 @@
-/api/v1/questions/getOptions/:id:
+/api/v1/questions/getOptions/{id}:
   get:
     tags:
       - Question
-    security: []
+    security:
+        - bearerAuth: []
     description: Listar opciones
     produces:
       - application/json
+    parameters:
+        - in: path
+          name: id   
+          required: true
+          type: integer
+          minimum: 1
+          description: option id
     responses:
       200:
         description: Petición exitosa
