@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import jwt from 'jsonwebtoken';
+import User from 'App/Models/User';
 
 export default class AdminAuth {
   public async handle({request,response}: HttpContextContract, next: () => Promise<void>) {
@@ -7,8 +8,10 @@ export default class AdminAuth {
     const authorizationHeader:any =  request.header('Authorization');
 
     let token = authorizationHeader.split(' ')[1];
-    const rol= jwt.decode(token).role;
-    if(rol===1){//rol de admin
+    const id = jwt.decode(token).id;
+    const user = await User.find(id);
+
+    if(user?.id_rol===1){//rol de admin
       await next()
     }else{
       response.unauthorized({"state":false,"message":"No estas autorizado"});

@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import jwt from 'jsonwebtoken';
+import User from 'App/Models/User';
 
 export default class StudentAuth {
   public async handle({request,response}: HttpContextContract, next: () => Promise<void>) {
@@ -7,8 +8,10 @@ export default class StudentAuth {
     const authorizationHeader:any =  request.header('Authorization');
 
     let token = authorizationHeader.split(' ')[1];
-    const rol= jwt.decode(token).role;
-    if(rol===1||rol===2){//rol de admin o estudiante
+    const id = jwt.decode(token).id;
+    const user = await User.find(id);
+
+    if(user?.id_rol===1||user?.id_rol===2){//rol de admin o estudiante
       await next()
     }else{
       response.unauthorized({"state":false,"message":"No estas autorizado"});

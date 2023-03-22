@@ -44,16 +44,7 @@ export default class UsersController {
             if(!validaPassword) return response.status(400).json({"state":false,"message":"Constraseña o email invalido"})
             
             const payload ={
-                "id":user.id_user,
-                "firstName": user.first_name,
-                "secondName": user.second_name,
-                "surname": user.surname,
-                "secondSurName": user.second_surname,
-                "typeDocument": user.id_typeDocument,
-                "documentNumber": user.document_number,
-                "email": user.email,
-                "phone": user.phone,
-                "role":user.id_rol
+                "id":user.id_user
             }
             const token:string = this.generarToken(payload);
             response.status(200).json({
