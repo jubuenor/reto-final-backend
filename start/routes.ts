@@ -26,7 +26,7 @@ Route.get('/', async () => {
 
 Route.group(()=>{
   Route.group(()=>{
-    Route.post('/user/register','UsersController.registerUser')
+    Route.post('/user/create','UsersController.registerUser')
     Route.post('/login','UsersController.login')
   })
 
